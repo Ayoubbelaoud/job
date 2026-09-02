@@ -1,13 +1,12 @@
-"use client"
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
-import Image from "next/image";
+import ImageTabs from "@/components/ui/image-tabs";
+import { ArrowRight, Briefcase, CheckCircle2, TrendingUp } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState("organize"); // organize,hired,boards
+  
   return (
     
     <div className="flex min-h-screen flex-col bg-white">
@@ -29,24 +28,47 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {/* Hero Images Section with Tabs */}
-        <section className="border-t bg-white py-16">
-          <div className="container mx-auto px-4">
-            <div className="mx-auto max-w-6xl">
-              {/* Tabs */}
-              <div className="flex gap-2 justify-center mb-8">
-                <Button onClick={() => setActiveTab("organize")}  className={'rounded-lg px-6 py-3 text-sm font-medium transition-colors ${ activeTab === "organize" ? "bg-primary text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}'}>Oraganize Application</Button>
-                <Button onClick={() => setActiveTab("hired")} className={'rounded-lg px-6 py-3 text-sm font-medium transition-colors ${ activeTab === "hired" ? "bg-primary text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}'}>Get Hired</Button>
-                <Button onClick={() => setActiveTab("board")} className={'rounded-lg px-6 py-3 text-sm font-medium transition-colors ${ activeTab === "board" ? "bg-primary text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}'}>Organze Application</Button>
+       <ImageTabs />
+       {/*Features Section */}
+       <section className="border-t bg-white py-24">
+        <div className="container mx-auto px-4">
+          <div className="grid gap-12 md:grid-cols-3">
+              <div className="flex flex-col">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                  <Briefcase className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="mb-3 text-2xl font-semibold text-black">
+                  Organize Applications
+                </h3>
+                <p className="text-muted-foreground">
+                  Create custom boards and columns to track your job applications at every stage of the process.
+                </p>
               </div>
-              <div className="relative mx-auto max-w-5xl overflow-hidden rounded-lg border border-gray-200 shadow-xl">
-                { activeTab === "organize" && (<Image src="/hero-images/hero0.png" alt="Organize Application" width={1200} height={800}/>)}
-                { activeTab === "hired" && (<Image src="/hero-images/hero1.png" alt="Organize Application" width={1200} height={800}/>)}
-                { activeTab === "board" && (<Image src="/hero-images/hero2.png" alt="Organize Application" width={1200} height={800}/>)}
+              <div className="flex flex-col">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                  <TrendingUp className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="mb-3 text-2xl font-semibold text-black">
+                  Track Progress
+                </h3>
+                <p className="text-muted-foreground">
+                  Create custom boards and columns to track your job applications at every stage of the process.
+                </p>
               </div>
-            </div>
+              <div className="flex flex-col">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                  <CheckCircle2 className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="mb-3 text-2xl font-semibold text-black">
+                  Stay Organized
+                </h3>
+                <p className="text-muted-foreground">
+                  Create custom boards and columns to track your job applications at every stage of the process.
+                </p>
+              </div>
           </div>
-        </section>
+        </div>
+       </section>
       </main>
     </div>
   );
