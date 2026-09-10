@@ -2,7 +2,7 @@ import React from 'react'
 
 const Dashboard = () => {
     return (
-        <div>Signin</div>
+        <div>Dash</div>
     )
 }
 export default Dashboard
