@@ -1,24 +1,52 @@
 import { query } from "@/lib/db";
 
-// دالة تجيب الأعمدة والوظائف الخاصة بـ Board معين
-export async function getBoardData(boardId: number, userId: number) {
+// 1. تعريف Interface للوظيفة
+export interface JobApplication {
+  id: number;
+  company: string;
+  position: string;
+  location?: string | null;
+  salary?: string | null;
+  url?: string | null;
+  notes?: string | null;
+  order: number;
+  column_id: number;
+  user_id: number;
+  created_at: Date | string;
+  updated_at: Date | string;
+}
+
+// 2. تعريف Interface للعمود مدموج مع الوظائف
+export interface ColumnWithJobs {
+  id: number;
+  board_id: number;
+  name: string;
+  order: number;
+  created_at: Date | string;
+  jobs: JobApplication[];
+}
+
+// 3. دالة جلب البيانات من PostgreSQL
+export async function getBoardData(
+  boardId: number,
+  userId: number
+): Promise<ColumnWithJobs[]> {
   try {
-    // 1. جلب الأعمدة مرتبة
     const columnsRes = await query(
       'SELECT * FROM columns WHERE board_id = $1 ORDER BY "order" ASC',
       [boardId]
     );
 
-    // 2. جلب جميع طلبات الشغل للمستخدم
     const jobsRes = await query(
       'SELECT * FROM job_applications WHERE user_id = $1 ORDER BY "order" ASC',
       [userId]
     );
 
-    // 3. دمج الوظائف داخل كل عمود مناظر ليها
-    const columnsWithJobs = columnsRes.rows.map((column) => ({
+    const allJobs = jobsRes.rows as JobApplication[];
+
+    const columnsWithJobs: ColumnWithJobs[] = columnsRes.rows.map((column) => ({
       ...column,
-      jobs: jobsRes.rows.filter((job) => job.column_id === column.id),
+      jobs: allJobs.filter((job) => job.column_id === column.id),
     }));
 
     return columnsWithJobs;
