@@ -69,7 +69,7 @@ function DroppableColumn({
   userId: number; // 2. حددنا نوع البيانات ديالو فـ TS
 }) {
   return (
-    <Card className="w-72 flex-shrink-0 border border-gray-100 shadow-sm overflow-hidden flex flex-col">
+    <Card className="min-w-[300px] flex-shrink-0 shadow-md p-0">
       {/* Header العمود */}
       <CardHeader className={`px-3 py-2.5 flex flex-row items-center justify-between space-y-0 ${config.bg} ${config.text}`}>
         <div className="flex items-center gap-2">
@@ -94,29 +94,6 @@ function DroppableColumn({
         {/* دابا userId متعرف ومصوب بشكل صحيح */}
         <CreateJobApplicationDialog columnId={column.id} userId={userId}/>
       </CardContent>
-      {/* محتوى العمود والبطاقات */}
-      <div className="p-3 flex-1 flex flex-col gap-3 bg-white">
-        {/* زر إضافة job */}
-        <button className="flex items-center justify-center gap-2 w-full py-1.5 border border-dashed border-gray-300 hover:border-gray-400 rounded-md text-sm text-gray-500 hover:text-gray-700 bg-gray-50 hover:bg-gray-100/50 transition">
-          <Plus className="w-3.5 h-3.5" /> Add Job
-        </button>
-
-        {/* قائمة الوظائف */}
-        <div className="space-y-2 overflow-y-auto max-h-[calc(100vh-250px)]">
-          {column.jobs.map((job: JobApplication) => (
-            <div
-              key={job.id}
-              className="bg-white p-3 rounded-lg shadow-sm border border-gray-200 hover:border-gray-300 cursor-pointer transition"
-            >
-              <p className="font-semibold text-sm text-gray-900">{job.company}</p>
-              <p className="text-xs text-gray-500 mt-0.5">{job.position}</p>
-              {job.location && (
-                <p className="text-[10px] text-gray-400 mt-1">{job.location}</p>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
     </Card>
   );
 }
